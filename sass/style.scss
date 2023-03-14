@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Oswald:400,600|Sacramento|Source+Sans+Pro:300&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Oswald:400,600|Sacramento|Source+Sans+Pro:300,700&subset=latin-ext');
 
 /* Variables */
 
@@ -34,11 +34,6 @@ body {
   text-transform: uppercase;
   font-family: $font-header;
   font-weight: 600;
-  span {
-    text-transform: none;
-    font-weight: 400;
-    color: lighten($color-dark, 20%);
-  }
 }
 
 /* Layout */
@@ -80,9 +75,15 @@ body {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  color: $color-dark;
   .active {
-    font-weight: bold;
+    font-weight: 700;
   }
+}
+
+.list a span{
+  list-style-type: none;
+  color: $color-dark;
 }
 
 .list-horizontal {
