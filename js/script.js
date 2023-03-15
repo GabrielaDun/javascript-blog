@@ -54,10 +54,13 @@ const optArticleSelector = '.post',
 function generateTitleLinks(){
 
   /* remove contents of titleList */
-  const titleList = document.querySelector(optTitleListSelector)
 
+  const titleList = document.querySelector(optTitleListSelector);
+  titleList.innerHTML = '';
 
   /* for each article */
+
+
 
     /* get the article id */
 
@@ -70,8 +73,5 @@ function generateTitleLinks(){
     /* insert link into titleList */
 
 }
-
 generateTitleLinks();
-
-
 }
