@@ -1,4 +1,4 @@
-
+'use strict';
 {
 const titleClickHandler = function(event){
   event.preventDefault();
@@ -16,6 +16,7 @@ const titleClickHandler = function(event){
   /* [DONE] add class 'active' to the clicked link */
   const linksClicked = clickedElement.classList.add('active');
   console.log('clickedElement:', clickedElement);
+  console.log(linksClicked)
 
   /* [DONE] remove class 'active' from all articles */
   const activeArticles = document.querySelectorAll('.posts .post');
@@ -56,7 +57,6 @@ for(let link of links){
 const optArticleSelector = '.post',
   optTitleSelector = '.post-title',
   optTitleListSelector = '.titles';
-
 function generateTitleLinks(){
 
   /*[DONE] remove contents of titleList */
@@ -68,8 +68,8 @@ function generateTitleLinks(){
     for(let article of articles){
   
     /* [PRABOBLY DONE] get the article id */
-      const articleID = optArticleSelector.getAttribute('id');
-      console.log(articleID)  
+      const articleId = optArticleSelector.getAttribute('id');
+      console.log(articleId)  
 
         /* [DONE]  find the title element */
       const articleTitle = article.querySelector(optTitleSelector).innerHTML;
