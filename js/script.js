@@ -4,7 +4,8 @@
   optTitleSelector = '.post-title',
   optTitleListSelector = '.titles',
   optArticleTagsSelector = '.post-tags .list', /* lista tagow*/
-  optAuthorSelector = '.post-author';
+  optAuthorSelector = '.post-author',
+  optTagsListSelector = '.tags.list';
   
 
 const titleClickHandler = function(event){
@@ -88,18 +89,15 @@ const generateTitleLinks = function (customSelector = ''){
 }
 generateTitleLinks();
 
-
-
 /* Adding tags to articles */
 
-
-
 const generateTags = function(){
+  /* [NEW] create a new variable allTags with an empty array */
+  let allTags = [];
   /* find all articles */
   const articles = document.querySelectorAll(optArticleSelector);
   /* START LOOP: for every article: */
   for(let article of articles){
-
     /* find tags wrapper */
     let tagWrapp = article.querySelector(optArticleTagsSelector);
     /* make html variable with empty string */
@@ -115,13 +113,22 @@ const generateTags = function(){
         const linkHTML = '<li><a href="#tag-' + tag + '"><span>' + tag + '</span></a></li>';
       /* add generated code to html variable */
       tagWrapp.insertAdjacentHTML("afterbegin",linkHTML)
+      /* [NEW] check if this link is NOT already in allTags */
+      if(allTags.indexOf(linkHTML) == -1){
+      /* [NEW] add generated code to allTags array */
+      allTags.push(linkHTML);     
       }
     /* END LOOP: for each tag */
+      }
     /* insert HTML of all the links into the tags wrapper */
   }
   /* END LOOP: for every article: */
-}
+   /* [NEW] find list of tags in right column */
+   const tagList = document.querySelector(optTagsListSelector);
 
+   /* [NEW] add html from allTags to tagList */
+   tagList.innerHTML = allTags.join(' '); 
+}
 
 /* Adding an event after clicking a tag*/
 generateTags();
@@ -175,22 +182,7 @@ const addClickListenersToTags = function(){
 addClickListenersToTags();
 
 
-
-
-
-
-
-
-
-
-
-
-/* [DOOONE!!! Adding authors to articles */
-
-
-
-
-
+/* [DONE Adding authors to articles */
 
 
 const generateAuthor = function(){
@@ -219,11 +211,7 @@ const generateAuthor = function(){
 }
 generateAuthor();
 
-
-
 /* Adding an event after clicking a tag */
-
-/* [IN PROGREDSS] */
 
 const authorClickHandler = function (event){
   /* [DONE] prevent default action for this event */
@@ -273,5 +261,7 @@ const addClickListenersToAuthor = function(){
   /* END LOOP: for each link */
 }
 addClickListenersToAuthor();
+
+
 
 }
