@@ -63,7 +63,6 @@ const generateTitleLinks = function (customSelector = ''){
 
   /* [PRABOBLY DONE] for each article */
   const articles = document.querySelectorAll(optArticleSelector + customSelector);
-  console.log(articles)
     for(let article of articles){
   
     /* [PRABOBLY DONE] get the article id */
@@ -75,7 +74,6 @@ const generateTitleLinks = function (customSelector = ''){
       /* create HTML of the link */
 
       const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
-      console.log(linkHTML)
 
       /* insert link into titleList */
       titleList.innerHTML = titleList.innerHTML + linkHTML;
@@ -88,6 +86,20 @@ const generateTitleLinks = function (customSelector = ''){
   
 }
 generateTitleLinks();
+
+const calculateTagsParams = function(tags){
+  const params = { max: 0, min: 99999};
+  for(let tag in tags){
+    console.log(tag + ' is used ' + tags[tag] + ' times');
+    if(tags[tag] > params.max){
+      params.max = tags[tag];
+    }
+    if(tags[tag] < params.min){
+      params.min = tags[tag];
+    }
+  }
+  return params
+};
 
 /* Adding tags to articles */
 
@@ -113,7 +125,6 @@ const generateTags = function(){
         const linkHTML = '<li><a href="#tag-' + tag + '"><span>' + tag + '</span></a></li>';
       /* add generated code to html variable */
       tagWrapp.insertAdjacentHTML("afterbegin",linkHTML)
-      console.log(tagWrapp);
       /* [NEW] check if this link is NOT already in allTags */
       if(!allTags[tag]){
         /* [NEW] add tag to allTags object */
@@ -130,6 +141,10 @@ const generateTags = function(){
     /* [NEW] find list of tags in right column */
    const tagList = document.querySelector(optTagsListSelector);
 
+     /* Finding the extreme numbers */
+    const tagsParams = calculateTagsParams(allTags);
+    console.log('tagsParams:', tagsParams)
+
     /* [NEW] create variable for all links HTML code */
     let allTagsHTML = '';
 
@@ -138,9 +153,6 @@ const generateTags = function(){
       /* [NEW] generate code of a link and add it to allTagsHTML */
       allTagsHTML += '<li><a href="#tag-' + tag + '"><span>' + tag + ' ('+ allTags[tag] + ') ' + '</span></a></li>';
     }
-    /* allTagsHTML += '<li><a href="#tag-' + tag + '"><span>' + tag + ' (' + allTags[tag] + ') '</span></a></li>' */
-    /*'<li><a href="#tag-' + tag + '"><span>' + tag + '</span></a></li>';*/ 
-    /* '<li><a href="#tag-' + tag + '"><span>' + tag + ' (' + allTags[tag] + ') '</span></a></li>'   */
     /* [NEW] END LOOP: for each tag in allTags: */
 
     /*[NEW] add HTML from allTagsHTML to tagList */
@@ -212,14 +224,11 @@ const generateAuthor = function(){
     let authorWrapp = article.querySelector(optAuthorSelector);
     /* get tags (author) from data-tags attribute */
     const articleAuthor = article.getAttribute('data-author')
-    console.log(articleAuthor);
     const authorNameAndSurname = articleAuthor.split('-')
     const authorName = authorNameAndSurname[0];
-    console.log(authorName); 
     const authorSurname = authorNameAndSurname[1];
     const linkHTML = '<a href="#author-' + articleAuthor + '"><span>' + 'by ' + authorName +' '+ authorSurname + '</span></a>';
       /* add generated code to html variable */
-    console.log(linkHTML);
       authorWrapp.insertAdjacentHTML("afterbegin",linkHTML)
     /* END LOOP: for each tag */
     /* insert HTML of all the links into the tags wrapper */
