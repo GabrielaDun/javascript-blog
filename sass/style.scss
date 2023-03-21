@@ -86,6 +86,11 @@ body {
   }
 }
 
+.sidebar .tags li {
+  display: inline-block;
+  padding: 0 5px;
+}
+
 .list a span{
   list-style-type: none;
   color: $color-dark;
@@ -93,9 +98,30 @@ body {
 
 .list-horizontal {
   li {
-    display: inline-block;
+    display: inline;
     padding: 0 5px;
   }
+}
+/* Tags */
+
+.tag-size-1 {
+  font-size: 16px;
+}
+
+.tag-size-2 {
+  font-size: 20px;
+}
+
+.tag-size-3 {
+  font-size: 22px;
+}
+
+.tag-size-4 {
+  font-size: 28px;
+}
+
+.tag-size-5 {
+  font-size: 32px;
 }
 
 /* Authors */

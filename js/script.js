@@ -5,7 +5,9 @@
   optTitleListSelector = '.titles',
   optArticleTagsSelector = '.post-tags .list', /* lista tagow*/
   optAuthorSelector = '.post-author',
-  optTagsListSelector = '.tags.list';
+  optTagsListSelector = '.tags.list',
+  optCloudClassCount = 5,
+  optCloudClassPrefix = 'tag-size-';
   
 
 const titleClickHandler = function(event){
@@ -97,11 +99,23 @@ const calculateTagsParams = function(tags){
     if(tags[tag] < params.min){
       params.min = tags[tag];
     }
+    console.log(params)
   }
   return params
 };
+calculateTagsParams();
 
-/* Adding tags to articles */
+const calculateTagClass = function (count, params){
+  const normalizedCount = count - params.min;
+  const normalizedMax = params.max - params.min;
+  const percentage = normalizedCount / normalizedMax;
+  const classNumber = Math.floor( percentage * (optCloudClassCount - 1) + 1 );
+  return optCloudClassPrefix + classNumber
+}
+
+
+
+/* Adding tags to articles and right column*/
 
 const generateTags = function(){
   /* [NEW] create a new variable allTags with an empty array */
@@ -151,13 +165,17 @@ const generateTags = function(){
     /* [NEW] START LOOP: for each tag in allTags: */
     for(let tag in allTags){
       /* [NEW] generate code of a link and add it to allTagsHTML */
-      allTagsHTML += '<li><a href="#tag-' + tag + '"><span>' + tag + ' ('+ allTags[tag] + ') ' + '</span></a></li>';
+      const tagLinkHTML = '<li><a class="' + calculateTagClass(allTags[tag], tagsParams) + '" href="#tag-' + tag + '"><span>' + tag  + '</span></a></li>';
+      console.log('tagLinkHTML:', tagLinkHTML);
+      /*allTagsHTML += '<li><a class="" href="#tag-' + tag + '"><span>' + tag + ' ('+ allTags[tag] + ') ' + '</span></a></li>'; */
+      allTagsHTML += tagLinkHTML;
     }
     /* [NEW] END LOOP: for each tag in allTags: */
 
     /*[NEW] add HTML from allTagsHTML to tagList */
     tagList.innerHTML = allTagsHTML;
 }
+
 
 /* Adding an event after clicking a tag*/
 generateTags();
