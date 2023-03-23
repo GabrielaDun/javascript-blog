@@ -9,7 +9,9 @@
       // eslint-disable-next-line no-undef
     authorInArticleLink: Handlebars.compile(document.querySelector('#template-author-in-article-link').innerHTML),
       // eslint-disable-next-line no-undef
-    tagCloudLink: Handlebars.compile(document.querySelector('#template-tag-cloud-link').innerHTML)
+    tagCloudLink: Handlebars.compile(document.querySelector('#template-tag-cloud-link').innerHTML),
+    // eslint-disable-next-line no-undef
+    authorCloudLink: Handlebars.compile(document.querySelector('#template-author-cloud-link').innerHTML),
   }
 
   const optArticleSelector = '.post',
@@ -272,20 +274,26 @@ const generateAuthor = function(){
         allAuthors [articleAuthor]++;
       }
     /* insert HTML of all the links into the tags wrapper */
+    }
   /* Find the list of authors in right column */
   const authorList = document.querySelector(optAuthorListSelector);
 
-  let allAuthorsHTML = '';
+  const allAuthorData = {authors: []};
   /* Create a new allAuthorsHTML variable for all the HTML code  */
   for(let author in allAuthors){
     const authorSplit = author.split('-')
+    const authorCombo = authorSplit[0] + ' ' + authorSplit[1];
     /* [NEW] generate code of a link and add it to allTagsHTML */
-    const tagLinkHTML = '<li><a href="#author-' + author + '"><span>' + authorSplit[0] + ' ' + authorSplit[1] + ' [' + allAuthors[author] + ']' + '</span></a></li>';
-    allAuthorsHTML +=tagLinkHTML;
-    authorList.innerHTML = allAuthorsHTML;
+   /* const tagLinkHTML = '<li><a href="#author-' + author + '"><span>' + authorCombo + ' [' + allAuthors[author] + ']' + '</span></a></li>'; */
+    allAuthorData.authors.push({
+      author: author,
+      count: allAuthors[author],
+      authorCombo: authorCombo
+    });
   }
+    console.log(allAuthorData);
+    authorList.innerHTML = templates.authorCloudLink(allAuthorData);
   /* Add allAuthors to allAuthorsHTML */
-    }
 }
 generateAuthor();
 
